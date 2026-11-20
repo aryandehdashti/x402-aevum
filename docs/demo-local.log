@@ -1,0 +1,54 @@
+# x402-aevum local e2e — anvil chain-id 44005, 2026-11-20T14:32Z
+
+[PASS] test_ExpiredAuthorizationReverts() (gas: 218510)
+[PASS] test_ReceiptBindsResource() (gas: 283922)
+[PASS] test_SettleWithAuthorization() (gas: 317455)
+[PASS] test_Settle_ApprovedPath() (gas: 280897)
+[PASS] test_ZeroAmountReverts() (gas: 30786)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 3.29ms (8.74ms CPU time)
+
+Ran 1 test suite in 10.14ms (3.29ms CPU time): 6 tests passed, 0 failed, 0 skipped (6 total tests)
+
+MockUSD8: 0x5fbdb2315678afecb367f032d93f642f64180aa3
+X402Gate: 0xe7f1725e7734ce288f8367e1bb143e90bb3f0512
+agent tUSD8: 10.000000
+[14:32:17] GET http://localhost:4405/r/payment-readiness?url=example.com -> 402
+[14:32:17] 402 challenge: 25000 base units tUSD8 via eip3009-gate on eip155:44005
+[14:32:17] orderId 0x193efcc43e2e7b8c630cf9f48b01820942f86bd2900df59fbd540b8927b5da78
+[14:32:17] signed ReceiveWithAuthorization v=27
+[14:32:18] GET (paid) -> 200
+{
+  "resource": "/r/payment-readiness",
+  "data": {
+    "target": "https://example.com",
+    "probedAt": "2026-11-20T14:32:17.901Z",
+    "probes": [
+      {
+        "method": "GET",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "status": 404,
+        "url": "https://example.com/.well-known/x402"
+      }
+    ],
+    "verdict": "free",
+    "defects": [
+      "no_paywall"
+    ]
+  },
+  "settlement": {
+    "orderId": "0x193efcc43e2e7b8c630cf9f48b01820942f86bd2900df59fbd540b8927b5da78",
+    "txHash": "0xc171e380b7685a97349e84616620cf724c76a6601112cecf2914b06822fa98b4",
+    "explorer": "https://explorer-test.qday.info/tx/0xc171e380b7685a97349e84616620cf724c76a6601112cecf2914b06822fa98b4",
+    "receiptUrl": "/receipt/0x193efcc43e2e7b8c630cf9f48b01820942f86bd2900df59fbd540b8927b5da78",
+    "payer": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    "amount": "25000"
+  }
+}
+[14:32:18] SETTLED on-chain: 0xc171e380b7685a97349e84616620cf724c76a6601112cecf2914b06822fa98b4
+[14:32:18] explorer: https://explorer-test.qday.info/tx/0xc171e380b7685a97349e84616620cf724c76a6601112cecf2914b06822fa98b4
+[14:32:18] receipt: http://localhost:4405/receipt/0x193efcc43e2e7b8c630cf9f48b01820942f86bd2900df59fbd540b8927b5da78
+settleCount=1 totalSettled=25000 spentOf(agent)=25000 merchantBal=25000
+E2E PASS
