@@ -1,0 +1,9 @@
+FROM node:22-alpine
+WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm ci --omit=dev --no-audit --no-fund || npm install --omit=dev --no-audit --no-fund
+COPY src ./src
+COPY artifacts ./artifacts
+# required env: AGENT_KEY RPC_URL; args: <server-url> <resource>
+ENTRYPOINT ["node", "src/agent.mjs"]
+CMD ["http://server:4405", "/r/chain-stats"]
