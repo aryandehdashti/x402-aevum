@@ -86,6 +86,19 @@ node test/e2e.mjs               # deploys MockUSD8+gate, mints, runs agent
 The e2e exercises the real HTTP flow: 402 challenge → agent signs → server
 relays → on-chain settlement → receipt readback.
 
+**Fork of live Aevum (real tUSD8):**
+
+```bash
+anvil --fork-url https://rpc-test.qday.info --fork-block-number <latest> \
+      --chain-id 44005 --hardfork shanghai --port 8545 &
+# fund the agent wallet by impersonating a tUSD8 holder on the fork, then:
+node test/e2e-fork.mjs
+```
+
+`--hardfork shanghai` is required — Aevum is pre-Cancun, so the forked block
+headers carry no blob-gas fields. The fork e2e settles against the real tUSD8
+bytecode and its real EIP-712 domain — the same path the live deployment uses.
+
 ## Deploy to Aevum testnet
 
 ```bash
